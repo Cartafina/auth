@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    @tasks = Task.where({"user_id" => session["id"]})
     @task = Task.new
   end
 
@@ -13,6 +13,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find_by({ "id" => params["id"] })
+    if @current_user["id"] == @task["user_id"]
     @task.destroy
     redirect_to "/tasks"
   end
