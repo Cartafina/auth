@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     @user["last_name"] = params["user"]["last_name"]
     @user["email"] = params["user"]["email"]
     @user["password"] = params["user"]["password"]
+    BCrypt::Password.create(params["user"]["password"])
     @user.save
     redirect_to "/users/#{@user["id"]}"
   end
